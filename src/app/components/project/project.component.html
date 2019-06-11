@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <h4 class="section-title">Proyectos:</h4>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-sm btn-success float-right" (click)="openProjectModal()">Agregar proyecto</button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover table-dark" *ngIf="projects?.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects">
+            <td [innerHTML]="project.id"></td>
+            <td [innerHTML]="project.name"></td>
+            <td [innerHTML]="project.description"></td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-action">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #addProjectModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Agregar proyecto:</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="projectModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit($event)">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Proyecto xyz"
+            [formControlName]="'nameInput'">
+        </div>
+
+        <div class="form-group">
+          <label for="name">Descripción</label>
+          <input type="text" class="form-control" id="description" aria-describedby="description"
+            placeholder="Construcción de ..." [formControlName]="'descriptionInput'">
+        </div>
+        <button type="submit" class="btn btn-sm btn-success" [disabled]="!projectForm.valid">Enviar</button>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #confirmModal>
+    <div class="modal-body text-center">
+      <p>Continuar?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()">Si</button>
+      <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+  </ng-template>

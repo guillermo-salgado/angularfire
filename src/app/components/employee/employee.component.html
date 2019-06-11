@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <h4 class="section-title">Empeados:</h4>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-sm btn-success float-right" (click)="openEmployeeModal()">Agregar
+        Empleado</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-dark" *ngIf="employees?.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td [innerHTML]="employee.id"></td>
+          <td [innerHTML]="employee.fName"></td>
+          <td [innerHTML]="employee.lName"></td>
+          <td>
+            <button type="button" class="btn btn-sm btn-success btn-action">Editar</button>
+            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #addEmployeeModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Agregar empleado:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="employeeModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <label for="fname">Nombre</label>
+        <input type="text" class="form-control" id="fname" aria-describedby="fname" placeholder="Jonh"
+          [formControlName]="'fNameInput'">
+      </div>
+
+      <div class="form-group">
+        <label for="lname">Apellido</label>
+        <input type="text" class="form-control" id="lname" aria-describedby="lname" placeholder="Doe"
+          [formControlName]="'lNameInput'">
+      </div>
+
+      <div class="form-group">
+        <label for="age">Edad</label>
+        <input type="number" class="form-control" id="age" aria-describedby="age" placeholder="22"
+          [formControlName]="'ageInput'">
+      </div>
+      <button type="submit" class="btn btn-sm btn-success" [disabled]="!employeeForm.valid">Enviar</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #confirmModal>
+  <div class="modal-body text-center">
+    <p>Continuar?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Si</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>

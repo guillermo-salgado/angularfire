@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-9">
+        <h4 class="section-title">Proveedores:</h4>
+      </div>
+      <div class="col-md-3">
+        <button type="button" class="btn btn-sm btn-success float-right" (click)="openProviderModal()">Agergar proveedor</button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-dark" *ngIf="providers?.length > 0">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let provider of providers">
+            <td [innerHTML]="provider.id"></td>
+            <td [innerHTML]="provider.name"></td>
+            <td [innerHTML]="provider.description"></td>
+            <td>
+              <button type="button" class="btn btn-sm btn-success btn-action">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #addProviderModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Agergar proveedor:</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="providerModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="providerForm" (ngSubmit)="onSubmit($event)">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Proveedor xyz"
+            [formControlName]="'nameInput'">
+        </div>
+
+        <div class="form-group">
+          <label for="name">Descripción</label>
+          <input type="text" class="form-control" id="description" aria-describedby="description"
+            placeholder="Provee ..." [formControlName]="'descriptionInput'">
+        </div>
+        <button type="submit" class="btn btn-sm btn-success" [disabled]="!providerForm.valid">Enviar</button>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #confirmModal>
+    <div class="modal-body text-center">
+      <p>Continuar?</p>
+      <button type="button" class="btn btn-default" (click)="confirm()">Si</button>
+      <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+    </div>
+  </ng-template>

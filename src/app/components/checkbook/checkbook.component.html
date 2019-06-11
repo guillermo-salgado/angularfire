@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <h4 class="section-title">Chequeras:</h4>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-sm btn-success float-right" (click)="openCheckbookModal()">Agregar
+        chequera</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-dark" *ngIf="checkbooks?.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let chb of checkbooks">
+          <td [innerHTML]="chb.id"></td>
+          <td [innerHTML]="chb.name"></td>
+          <td [innerHTML]="chb.description"></td>
+          <td>
+            <button type="button" class="btn btn-sm btn-success btn-action">Editar</button>
+            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #addCheckbookModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Agregar chequera:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="checkbookModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="checkbookForm" (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Fondo de ..."
+          [formControlName]="'nameInput'">
+      </div>
+
+      <div class="form-group">
+        <label for="name">Descripción</label>
+        <input type="text" class="form-control" id="description" aria-describedby="description"
+          placeholder="Está chequera es utilizada para ..." [formControlName]="'descriptionInput'">
+      </div>
+      <button type="submit" class="btn btn-sm btn-success" [disabled]="!checkbookForm.valid">Enviar</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #confirmModal>
+  <div class="modal-body text-center">
+    <p>Continuar?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Si</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
