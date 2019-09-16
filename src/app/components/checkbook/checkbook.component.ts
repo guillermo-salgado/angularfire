@@ -36,9 +36,10 @@ export class CheckbookComponent implements OnInit {
   }
 
   addCheckbook(name: string, description: string) {
-    this.firestoreService.addCheckbook({
-      id: this.firestoreService.createId(),
-      name, description
+    const id = this.firestoreService.createId();
+
+    this.firestoreService.addCheckbook(id, {
+      id, name, description
     });
   }
 

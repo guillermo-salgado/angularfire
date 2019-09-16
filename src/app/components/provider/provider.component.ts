@@ -36,9 +36,10 @@ export class ProviderComponent implements OnInit {
   }
 
   addProvider(name: string, description: string) {
-    this.firestoreService.addProvider({
-      id: this.firestoreService.createId(),
-      name, description
+    const id = this.firestoreService.createId();
+
+    this.firestoreService.addProvider(id, {
+      id, name, description
     });
   }
 

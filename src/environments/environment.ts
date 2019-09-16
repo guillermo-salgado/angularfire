@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyADlp1EzTXJ8jAQGhWRZeMCpY92kR_d64A",
-    authDomain: "craco-dev.firebaseapp.com",
-    databaseURL: "https://craco-dev.firebaseio.com",
-    projectId: "craco-dev",
-    storageBucket: "craco-dev.appspot.com",
-    messagingSenderId: "365432964183",
+    apiKey: 'AIzaSyADlp1EzTXJ8jAQGhWRZeMCpY92kR_d64A',
+    authDomain: 'craco-dev.firebaseapp.com',
+    databaseURL: 'https://craco-dev.firebaseio.com',
+    projectId: 'craco-dev',
+    storageBucket: 'craco-dev.appspot.com',
+    messagingSenderId: '365432964183',
   }
 };
 

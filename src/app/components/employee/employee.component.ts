@@ -36,9 +36,10 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(fName: string, lName: string, age: number) {
-    this.firestoreService.addEmployee({
-      id: this.firestoreService.createId(),
-      fName, lName, age
+    const id = this.firestoreService.createId();
+
+    this.firestoreService.addEmployee(id, {
+      id, fName, lName, age
     });
   }
 

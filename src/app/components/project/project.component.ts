@@ -36,9 +36,10 @@ export class ProjectComponent implements OnInit {
   }
 
   addProject(name: string, description: string) {
-    this.firestoreService.addProject({
-      id: this.firestoreService.createId(),
-      name, description
+    const id = this.firestoreService.createId();
+
+    this.firestoreService.addProject(id, {
+      id, name, description
     });
   }
 

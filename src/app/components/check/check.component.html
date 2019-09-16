@@ -1,3 +1,91 @@
-<p>
-  check works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-9">
+      <h4 class="section-title">Cheques:</h4>
+    </div>
+    <div class="col-md-3">
+      <button type="button" class="btn btn-sm btn-success float-right" (click)="openCheckModal()">Agregar
+        Cheque</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-dark" *ngIf="checks?.length > 0">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Proyecto</th>
+          <th scope="col">Monto</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let check of checks">
+          <td [innerHTML]="check.id"></td>
+          <td [innerHTML]="check.description"></td>
+          <td [innerHTML]="check.project.name"></td>
+          <td [innerHTML]="check.amount"></td>
+          <td>
+            <button type="button" class="btn btn-sm btn-success btn-action">Editar</button>
+            <button type="button" class="btn btn-sm btn-danger">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #addCheckModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Agregar empleado:</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="checkModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="checkForm" (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <label for="project">Proyecto</label>
+        <select class="form-control" id="project" [formControlName]="'projectInput'">
+          <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="checkbook">Chequera</label>
+        <select class="form-control" id="checkbook" [formControlName]="'checkbookInput'">
+          <option *ngFor="let checkbook of checkbooks" [value]="checkbook.id">{{checkbook.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="employee">Empleado</label>
+        <select class="form-control" id="employee" [formControlName]="'employeeInput'">
+          <option *ngFor="let employee of employees" [value]="employee.id">{{employee.fName + ' ' + employee.lName}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <input type="text" class="form-control" id="description" aria-describedby="description" placeholder="En concepto de ..."
+          [formControlName]="'descriptionInput'">
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Monto</label>
+        <input type="number" class="form-control" id="amount" aria-describedby="amount" placeholder="375.89"
+          [formControlName]="'amountInput'">
+      </div>
+      <button type="submit" class="btn btn-sm btn-success" [disabled]="!checkForm.valid">Enviar</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #confirmModal>
+  <div class="modal-body text-center">
+    <p>Continuar?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Si</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>
